@@ -18,6 +18,16 @@ jobs:
 
       - name: Checked
         run: |
+          for f in *.deb; do
+             echo "Checking $f ..."
+	           if ! dpkg-deb -I "$f" >/dev/null 2>&1; then
+		            echo "❌ Error in $f → removing"
+		            rm -rf "$f"
+	           else
+		           echo "✅ OK: $f"
+	           fi
+          done
+        
           touch Packages
           dpkg-scanpackages -m . /dev/null >> Packages
 
