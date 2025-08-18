@@ -16,6 +16,11 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Checked
+        run: |
+          touch Packages
+          dpkg-scanpackages -m . /dev/null >> Packages
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
